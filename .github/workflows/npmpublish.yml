@@ -28,7 +28,7 @@ jobs:
     # 战略
     strategy:
       matrix:
-        node-version: [10.x]
+        node-version: [12.x]
         os: [macOS-latest]
 
     steps:
@@ -51,22 +51,23 @@ jobs:
 #         env:
 #           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
 
-      - name: Install Dependencies
-        run: npm install
-      
       - name: Setup Node
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
           registry-url: https://npm.pkg.github.com/
           scope: '@2627500295'
-        
+    
+      - name: Install Dependencies
+        run: npm install
+      
       - name: npm publish from gpr (github package registry)
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CI: true
         run: |
           yarn build
           yarn semantic-release
