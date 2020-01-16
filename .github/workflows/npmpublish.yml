@@ -35,28 +35,12 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v1
         
-      # - name: Setup Node
-      #   uses: actions/setup-node@v1
-      #   with:
-      #     node-version: ${{ matrix.node-version }}
-      
-#       - name: CI
-#         run: npm ci
-        
-#       - name: Testing
-#         run: npm test
-
-#       - name: npm publish
-#         run: npm publish
-#         env:
-#           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
-
       - name: Setup Node
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
           registry-url: https://npm.pkg.github.com/
-          scope: '@2627500295'
+          scope: '2627500295'
     
       - name: Install Dependencies
         run: npm install
